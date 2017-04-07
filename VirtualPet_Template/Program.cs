@@ -10,13 +10,17 @@ namespace VirtualPet_Template
     {
         static void Main(string[] args)
         {
+            string input = "";                           // user input
+            bool valid = false;                          // tests validity of input from user
+            int selectedOption = -1;                     // menu choice (parsed from input)
+
             //this is how we instantiate a new instance of our pet
             VirtualPet myPet = new VirtualPet();
 
 
             //TODO add a greeting for the user. you can also let the user name the pet if you like
 
-            int selectedOption;
+
 
             do
             {
@@ -27,7 +31,8 @@ namespace VirtualPet_Template
                 Console.WriteLine("10. Quit");
 
 
-                selectedOption = int.Parse(Console.ReadLine());
+                input = Console.ReadLine().Trim().ToLower();                  // read user input
+                selectedOption = GetInput(input);                             // call method GetInput to validate user input
 
                 myPet.MyPetStatus();
 
@@ -60,5 +65,36 @@ namespace VirtualPet_Template
             } while (selectedOption != 10);
 
         }
+        static int GetInput(string input)
+        {
+            int selectedOption;
+            double decimalNumber;
+            bool validInt = false;
+            bool validDouble = false;
+
+            validInt = int.TryParse(input, out selectedOption);
+            validDouble = double.TryParse(input, out decimalNumber);
+
+            if (validInt)
+            {
+                return selectedOption;                       // a valid integer was entered
+            }
+            else if (validDouble)                             // a decimal number was entered
+            {
+                selectedOption = Convert.ToInt32(decimalNumber);  // convert to an integer
+                return selectedOption;
+            }
+            else if (input == "quit" || input == "exit" || input == "q")
+            {
+                selectedOption = 10;
+                return selectedOption;
+            }
+            else
+            {
+                selectedOption = -1;
+                return selectedOption;
+            }
+        }
+
     }
 }
