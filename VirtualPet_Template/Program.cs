@@ -24,45 +24,80 @@ namespace VirtualPet_Template
 
             do
             {
-                //TODO fill this out with more options to interact with the pet
+                myPet.MyPetStatus();
+
+
                 Console.WriteLine();
-                Console.WriteLine("Please select an option");
-                Console.WriteLine("1. Feed the pet");
-                Console.WriteLine("10. Quit");
+                Console.WriteLine("\r\n\r\n  Please select an option:\r\n");
+                Console.WriteLine("  1. Feed the pet");
+                Console.WriteLine("  2. Give your pet some water");
+                Console.WriteLine("  3. Take your pet out to the bathroom");
+                Console.WriteLine("  4. Play with your pet");
+                Console.WriteLine("  5. Take your pet to the vet");
+                Console.WriteLine("  6. Quit");
 
 
                 input = Console.ReadLine().Trim().ToLower();                  // read user input
                 selectedOption = GetInput(input);                             // call method GetInput to validate user input
 
-                myPet.MyPetStatus();
-
+ 
                 switch (selectedOption)
                 {
                     //when the user selects option one we feed the pet
                     case 1:
 
-                        myPet.HungerDecrease();
-                        Console.WriteLine("Thank you for feeding the pet");
+                        myPet.HungerChange(-1);
+                        Console.Clear();
+                        Console.WriteLine("\t\tThank you for feeding the pet!");
                         break;
 
-                    //TODO we need to add more cases for the other ways to interact with our pet
+                    case 2:
 
-                    case 10:
+                        myPet.ThirstChange(-2);
+                        Console.Clear();
+                        Console.WriteLine("\t\tThank you for giving your pet water!");
+                        break;
 
-                        Console.WriteLine("Thank you for playing.");
+                    case 3:
+
+                        myPet.WasteChange(-3);
+                        Console.Clear();
+                        Console.WriteLine("\tThank you for taking your pet to the bathroom!");
+                        break;
+
+                    case 4:
+
+                        myPet.BoredomChange(-3);
+                        Console.Clear();
+                        Console.WriteLine("\t\tYour pet appreciates your attention!");
+                        break;
+
+                    case 5:
+
+                        myPet.SickChange(-4);
+                        Console.Clear();
+                        Console.WriteLine("\tYour pet feels so much better now.  Thank you!");
+                        break;
+
+                    case 6:
+
+                        Console.WriteLine("\t\tThank you for playing.\r\n\r\n\r\n\r\nPress any key to continue...");
+                        Console.ReadKey();
                         break;
 
                     default:
 
-                        Console.WriteLine("Invalid option selected.");
+                        Console.WriteLine("***** Invalid option selected.");
                         break;
                 }
 
-                //TODO We can put method calls here so the pet can have some values change automatically
-                //Feel free to add, remove, or modify which methods are called here
-                myPet.HungerIncrease();
+                myPet.HungerChange(0.5);
+                myPet.ThirstChange(0.5);
+                myPet.WasteChange(0.5);
+                myPet.BoredomChange(0.5);
 
-            } while (selectedOption != 10);
+
+            } while (selectedOption != 6);
 
         }
         static int GetInput(string input)
@@ -86,7 +121,7 @@ namespace VirtualPet_Template
             }
             else if (input == "quit" || input == "exit" || input == "q")
             {
-                selectedOption = 10;
+                selectedOption = 6;
                 return selectedOption;
             }
             else
