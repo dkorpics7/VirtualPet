@@ -9,7 +9,7 @@ namespace VirtualPet_Template
 
     class VirtualPet
     {
-        //  fields are private so only the VirtualPet class can modify them directly
+
         private string name;
         private double hunger;
         private double thirst;
@@ -78,5 +78,32 @@ namespace VirtualPet_Template
             Console.WriteLine("\t\t\tBoredom:  " + boredom.ToString("#.0"));
             Console.WriteLine("\t\t\tSickness: " + sick.ToString("#.0"));
         }
+
+        //methods to make object states/attributes accessible from Program.cs
+        public string GetName()
+        {
+            return name;
+        }
+        public double GetHunger()
+        {
+            return hunger;
+        }
+        public double GetThirst()
+        {
+            return thirst;
+        }
+        public double GetWaste()
+        {
+            return waste;
+        }
+        public double GetBoredom()
+        {
+            return boredom;
+        }
+        public double GetSick()
+        {
+            return sick;
+        }
+
     }
 }

@@ -13,30 +13,42 @@ namespace VirtualPet_Template
             string input = "";                           // user input
             bool valid = false;                          // tests validity of input from user
             int selectedOption = -1;                     // menu choice (parsed from input)
+            string[] menu = new string[10];              // stores menu choices
+            string name;
+            double hunger, thirst, waste, boredom, sick;
 
             //this is how we instantiate a new instance of our pet
-            VirtualPet myPet = new VirtualPet();
+            VirtualPet myPet = new VirtualPet("George", 5, 5, 5, 5, 5);
 
 
             //TODO add a greeting for the user. you can also let the user name the pet if you like
+            //TODO let user select pet (add pictures if possible)
+            //TODO add warnings and consequences when status levels get near 0 or 10 (add pictures if possible
+            //TODO make states interact and effect each other
+            //TODO add timer to automatically change attributes with time
+            //TODO add scale to show current status levels
 
-
+            menu[1] = "  1. Feed " + myPet.GetName() + ".";
+            menu[2] = "  2. Give " + myPet.GetName() + " water.";
+            menu[3] = "  3. Take " + myPet.GetName() + " out to use the bathroom.";
+            menu[4] = "  4. Play with " + myPet.GetName() + ".";
+            menu[5] = "  5. " + myPet.GetName() + " isn't feeling well.  A vet visit is in order.";
+            menu[6] = "  6. Quit";
+            
 
             do
             {
-                myPet.MyPetStatus();
+                myPet.MyPetStatus();                                         // print pet's current status
 
 
                 Console.WriteLine();
                 Console.WriteLine("\r\n\r\n  Please select an option:\r\n");
-                Console.WriteLine("  1. Feed the pet");
-                Console.WriteLine("  2. Give your pet some water");
-                Console.WriteLine("  3. Take your pet out to the bathroom");
-                Console.WriteLine("  4. Play with your pet");
-                Console.WriteLine("  5. Take your pet to the vet");
-                Console.WriteLine("  6. Quit");
+                for (int i = 0; i < 7; i++)                       
+                {
+                    Console.WriteLine(menu[i]);                               // print menu choices for user
+                }
 
-
+                
                 input = Console.ReadLine().Trim().ToLower();                  // read user input
                 selectedOption = GetInput(input);                             // call method GetInput to validate user input
 
@@ -55,39 +67,40 @@ namespace VirtualPet_Template
 
                         myPet.ThirstChange(-2);
                         Console.Clear();
-                        Console.WriteLine("\t\tThank you for giving your pet water!");
+                        Console.WriteLine("\r\n\t\tThank you for giving your pet water!");
                         break;
 
                     case 3:
 
                         myPet.WasteChange(-3);
                         Console.Clear();
-                        Console.WriteLine("\tThank you for taking your pet to the bathroom!");
+                        Console.WriteLine("\r\n\tThank you for taking your pet to the bathroom!");
                         break;
 
                     case 4:
 
                         myPet.BoredomChange(-3);
                         Console.Clear();
-                        Console.WriteLine("\t\tYour pet appreciates your attention!");
+                        Console.WriteLine("\r\n\t\tYour pet appreciates your attention!");
                         break;
 
                     case 5:
 
                         myPet.SickChange(-4);
                         Console.Clear();
-                        Console.WriteLine("\tYour pet feels so much better now.  Thank you!");
+                        Console.WriteLine("\r\n\tYour pet feels so much better now.  Thank you!");
                         break;
 
                     case 6:
 
-                        Console.WriteLine("\t\tThank you for playing.\r\n\r\n\r\n\r\nPress any key to continue...");
+                        Console.WriteLine("\r\n\t\tThank you for playing.\r\n\r\n\r\n\r\nPress any key to continue...");
                         Console.ReadKey();
                         break;
 
                     default:
 
-                        Console.WriteLine("***** Invalid option selected.");
+                        Console.WriteLine("***** Invalid option selected.\r\n\r\nPress any key to continue...");
+                        Console.ReadKey();
                         break;
                 }
 
