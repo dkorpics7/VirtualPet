@@ -10,6 +10,16 @@ namespace VirtualPet_Template
     {
         static void Main(string[] args)
         {
+            //This program is a virtual pet program.  The user practices taking care of a virtual pet.
+            //The program tracks the status of the pet and gives the user a score which represents their
+            //skill at taking care of their pet.
+
+            //Future improvements planned:  update user score in random events
+            //                              prevent a random event from occuring twice
+            //                              add more random events
+            //                              allow a random event to terminate the program
+
+
             string input = "";                           // user input
             string userName;                             // user's name
             string petName;                              // pet's name
@@ -41,13 +51,13 @@ namespace VirtualPet_Template
             menu[1] = "  1. Feed " + myPet.GetName() + ".";
             menu[2] = "  2. Give " + myPet.GetName() + " water.";
             menu[3] = "  3. Take " + myPet.GetName() + " out to use the bathroom.";
-            menu[4] = "  4. Play with " + myPet.GetName() + ".";
+            menu[4] = "  4. Take " + myPet.GetName() + "to the park to play.";
             menu[5] = "  5. " + myPet.GetName() + " isn't feeling well.  Take him to the vet.";
             menu[6] = "  6. Quit";
 
 
             time = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second;  //get current time
-            rndTime = time;                        
+            rndTime = time;
             do
             {
                 counter++;
@@ -59,141 +69,27 @@ namespace VirtualPet_Template
                     elapsedTime = newTime - time;                               // calculate elapsed time since last menu entry
                     if (elapsedTime < 0) elapsedTime = 0;
                     if (elapsedTime > 20) elapsedTime = 20;                     //caps the elapsed time so that changes are not too great
-                    myPet.HungerChange(elapsedTime * 0.15);                     //increase hunger as time goes by
-                    myPet.ThirstChange(elapsedTime * 0.15);                     //increase thirst as time goes by
-                    myPet.WasteChange(elapsedTime * 0.15);                      //increase waste as time goes by
-                    myPet.BoredomChange(elapsedTime * 0.15);                    //increase boredom as time goes by
+                    myPet.HungerChange(elapsedTime * 0.2);                     //increase hunger as time goes by
+                    myPet.ThirstChange(elapsedTime * 0.2);                     //increase thirst as time goes by
+                    myPet.WasteChange(elapsedTime * 0.2);                      //increase waste as time goes by
+                    myPet.BoredomChange(elapsedTime * 0.2);                    //increase boredom as time goes by
                     time = newTime;
                 }
                 quit = myPet.GetTerminate();                                    // get current terminate status
 
                 if (!quit)
                 {
-                    myPet.MyPetStatus(userName, score);                    // print pet's current status
+                    myPet.MyPetStatus(userName, score);                       // print pet's current status
 
                     //set random events
-                    number = rnd.Next(1, 100);                             // pick random number between 1 and 100
+                    randomNumber = rnd.Next(1, 50);                           // pick random number between 1 and 100
                     newRndTime = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second;
-                    if((newRndTime-rndTime) > 120)                          // set minimum frequency of random events in seconds
+                    if ((newRndTime - rndTime) > 15)                          // set minimum frequency of random events in seconds
                     {
-                        switch (randomNumber)
-                        {
-                            case 1: // pet was lost and found
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.",petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 5: // pet 
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 13:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 44:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 51:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 67:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 72:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 89:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 93:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            case 99:
-                                Console.WriteLine("\r\n\t********************** ALERT ***********************");
-                                Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
-                                Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
-                                myPet.HungerChange(1.0);                           // increase hunger
-                                myPet.ThirstChange(1.0);                           // increase thirst
-                                myPet.WasteChange(-1.0);                           // decrease need to go potty
-                                myPet.BoredomChange(-1.5);                         // decrease boredom
-                                rndTime = newRndTime;                              // update time since last random event
-                                myPet.MyPetStatus(userName, score);                // print pet's current status
-                                break;
-                            default:
-                                break;                             
-                        }
+                        rndTime = myPet.RandomEvent(randomNumber, newRndTime, userName, petName, score, rndTime); // get random event
                     }
                     Console.WriteLine();
-                    Console.WriteLine("\r\n\r\n  Please select an option:\r\n");
+                    Console.WriteLine("\r\n  Please select an option:\r\n");  // prompt user for menu choice
                     for (int i = 0; i < 7; i++)
                     {
                         Console.WriteLine(menu[i]);                               // print menu choices for user
@@ -205,38 +101,42 @@ namespace VirtualPet_Template
                 }
                 else
                 {
-                    selectedOption = 6;                                          // terminate program
+                    selectedOption = 6;                                          // terminate program if terimate=true
                 }
 
- 
+
                 switch (selectedOption)                                       // perform action based on user input
                 {
                     case 1:                                                   // feed the pet
 
                         myPet.HungerChange(-1);
                         Console.Clear();
-                        Console.WriteLine("\t\tThank you for feeding {0}!",petName);
+                        Console.WriteLine("\r\n\t\tThank you for feeding {0}!", petName);
                         break;
 
                     case 2:                                                   // give pet water
 
                         myPet.ThirstChange(-1);
                         Console.Clear();
-                        Console.WriteLine("\r\n\t\tThank you for giving {0} water!",petName);
+                        Console.WriteLine("\r\n\t\tThank you for giving {0} water!", petName);
                         break;
 
                     case 3:                                                   // bathroom break!
 
-                        myPet.WasteChange(-0.5);
+                        myPet.WasteChange(-0.7);
                         Console.Clear();
-                        Console.WriteLine("\r\n\tThank you for taking {0} to the bathroom!", petName);
+                        Console.WriteLine("\r\n\tThank you for letting {0} outside to go potty!", petName);
                         break;
 
                     case 4:                                                  // play with pet
 
                         myPet.BoredomChange(-1);
+                        myPet.HungerChange(0.2);
+                        myPet.ThirstChange(0.4);
+                        myPet.SickChange(-0.2);
+                        myPet.WasteChange(-0.5);
                         Console.Clear();
-                        Console.WriteLine("\r\n\t\t{0} appreciates your attention!",petName);
+                        Console.WriteLine("\r\n\t\t{0} had a wonderful time with you!", petName);
                         break;
 
                     case 5:                                                 // take pet to vet
@@ -244,20 +144,20 @@ namespace VirtualPet_Template
                         myPet.SickChange(-2);
                         Console.Clear();
                         number = myPet.GetSick();
-                        if(number<5)Console.WriteLine("\r\n\t{0} feels so much better now.  Thank you!",petName);
-                        if (number < 8 && number >=5) Console.WriteLine("\r\n\t{0} feels much better, but you should propbably\r\n\tkeep a close eye on him.", petName);
-                        if (number >= 8) Console.WriteLine("\r\n\tThank you for taking {0} to the vet. He is still not feeling well\r\n\tand may need another visit.",petName);
+                        if (number < 5) Console.WriteLine("\r\n\t{0} feels so much better now.  Thank you!", petName);
+                        if (number < 8 && number >= 5) Console.WriteLine("\r\n\t{0} feels much better, but you should propbably\r\n\tkeep a close eye on him.", petName);
+                        if (number >= 8) Console.WriteLine("\r\n\tThank you for taking {0} to the vet. He is still not feeling well\r\n\tand may need another visit.", petName);
                         break;
 
                     case 6:                                                 // quit
 
                         Console.WriteLine("\r\n\tThank you for playing, {0}.  Your final score is:  {1}", userName, score);
-                        Console.WriteLine("\r\n\r\n\r\n\r\nPress any key to continue...");
-                        Console.ReadKey();
+                        Console.WriteLine("\r\n\r\n\r\n\r\nPress return to exit...");
+                        Console.ReadLine();
                         break;
 
                     default:
-                 
+
                         Console.WriteLine("*** Invalid option selected.\r\n\r\nPress any key to continue...");
                         Console.ReadKey();
                         break;
@@ -266,7 +166,7 @@ namespace VirtualPet_Template
             } while (selectedOption != 6);
 
         }
-        static int GetInput(string input)
+        static int GetInput(string input) // parses input string to return a valid user-selected menu option
         {
             int selectedOption;
             double decimalNumber;
@@ -296,7 +196,7 @@ namespace VirtualPet_Template
                 return selectedOption;
             }
         }
-        static string Greet()
+        static string Greet()  // Greets the user, gets their name, and teaches how the program works.
         {
             string userName;
 
@@ -316,7 +216,7 @@ namespace VirtualPet_Template
             Console.WriteLine("Your goal is to keep your pet healthy and happy. You will do this by");
             Console.WriteLine("by feeding him, playing with him, etc...  We will regularly show you");
             Console.WriteLine("how your pet is doing by displaying his status (see example below):");
-            Console.WriteLine("\r\n\tYour Pet's status: \t\t\t{0}'s score: 100",userName);
+            Console.WriteLine("\r\n\tYour Pet's status: \t\t\t{0}'s score: 100", userName);
             Console.WriteLine("\t\t\tHunger:  6.0");
             Console.WriteLine("\t\t\tBoredom: 7.8");
             Console.WriteLine("\t\t\tSickness: 9.5");
@@ -333,14 +233,14 @@ namespace VirtualPet_Template
 
             return userName;
         }
-        static string GetPetName(string userName)
+        static string GetPetName(string userName)  //Asks the user for the pet name
         {
             string petName;
 
-            Console.Write("\r\n\r\n\r\n\t{0}, What would you like to call your pet?\r\n\t(if you hit return, we will pick a name for you):  ",userName);
+            Console.Write("\r\n\r\n\r\n\t{0}, What would you like to call your pet?\r\n\t(if you hit return, we will pick a name for you):  ", userName);
             petName = Console.ReadLine().Trim();
 
-            if (petName == "") Console.WriteLine("\r\n\r\n\tYour pet's name is George, and he is lucky to have such a \r\n\tconscientious owner.",petName);
+            if (petName == "") Console.WriteLine("\r\n\r\n\tYour pet's name is George, and he is lucky to have such a \r\n\tconscientious owner.", petName);
             Console.WriteLine("\r\n\r\n\r\nPress any key to continue...");
             Console.ReadKey();
             Console.Clear();

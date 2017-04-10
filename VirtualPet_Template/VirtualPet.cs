@@ -103,7 +103,7 @@ namespace VirtualPet_Template
             double tempWaste = 0;
             double tempBoredom = 0;
             double tempSick = 0;
-            double maxChange = 1;
+            double maxChange = 0.7;
 
             Console.WriteLine();
             if (hunger <= -2)
@@ -329,6 +329,8 @@ namespace VirtualPet_Template
                 counterGood++;
             }
 
+            if (counterBad >= 1) Console.WriteLine("\a");                    // beep if their are any warnings
+
             if (tempHunger < (0-maxChange)) tempHunger = (0-maxChange);
             if (tempHunger > maxChange) tempHunger = maxChange;
             if (tempThirst < (0 - maxChange)) tempThirst = (0 - maxChange);
@@ -380,5 +382,143 @@ namespace VirtualPet_Template
         {
             return terminate;
         }
+
+        public double RandomEvent(int number, double newRndTime, string userName, string petName,double score, double time)  //random events
+        {
+            double rndTime = time;
+            switch (number)
+            {
+                case 1: // pet was lost and found
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a********************** ALERT ***********************");
+                    Console.WriteLine("\r\n\t{0} got lost when he chased after a squirrel.", petName);
+                    Console.WriteLine("\tHe returned home 3 hours later very tired and hungry!");
+                    hunger += 1;                                       // increase hunger
+                    thirst += 1;                                       // increase thirst
+                    waste += -1;                                       // decrease need to go potty
+                    boredom += -1.5;                                   // decrease boredom
+                    sick += 0.5;                                       // increase pet's health
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 5: // pet eats people food and gets sick
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************ ALERT ***************************");
+                    Console.WriteLine("\r\n\tYour friend gave {0} a steak bone and now {1}", petName, petName);
+                    Console.WriteLine("\tis vomiting and has diarrhea and needs medicine from the vet.");
+                    hunger += -1.5;                                    // decrease hunger
+                    thirst += 1;                                       // increase thirst
+                    waste += 2.5;                                      // increase need to go potty
+                    boredom += -1.5;                                   // decrease boredom
+                    sick += 2.5;                                       // increase pet's sickness
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 13: // pet steals your dinner
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *****************************");
+                    Console.WriteLine("\r\n\t{0} stole your dinner right off your plate when you went", petName);
+                    Console.WriteLine("\tto the bathroom.  You need to teach him some manners!");
+                    hunger += -1;                                      // decrease hunger
+                    thirst += 1;                                       // increase thirst
+                    waste += 1;                                        // increase need to go potty
+                    sick += 0.5;                                       // increase pet's sickness
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 14: //pet saves child from drowning
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *****************************");
+                    Console.WriteLine("\r\n\t{0} saved the little girl next store from falling into the lake", petName);
+                    Console.WriteLine("\tYou must be very proud of him!");
+                    hunger += 1.5;                                     // decrease hunger
+                    thirst += 1;                                       // increase thirst
+                    waste += -0.5;                                     // increase need to go potty
+                    sick += -1;                                        // increase pet's sickness
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 21: // pet got into fight with dog next door
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *****************************");
+                    Console.WriteLine("\r\n\t{0} got into a fight with the dog next door.  He has a few", petName);
+                    Console.WriteLine("\tbites that you might need to have looked at by your vet.");
+                    sick += 2;                                         // increase pet's sickness
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 27:  // pet wins in local dog show
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a***************** CONGRATULATIONS **********************");
+                    Console.WriteLine("\r\n\tYour {0} won \"Best in Show\" at the local dog show.", petName);
+                    Console.WriteLine("\tIt was a stressful weekend, and {0} could use some pampering!", petName);
+                    hunger += 1.5;                                     // increase hunger
+                    thirst += 1;                                       // increase thirst
+                    waste += 1;                                        // increase need to go potty
+                    boredom += 2;                                      // increase pet's boredom
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 32:  // pet is left in kennel for the weekend
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *****************************");
+                    Console.WriteLine("\r\n\tYou put {0} in the kennel this weekend because you went", petName);
+                    Console.WriteLine("\tout of town. Poor {0} was depressed and didn't eat all weekend!", petName);
+                    hunger += 2.5;                                     // increase hunger
+                    thirst += 2;                                       // increase thirst
+                    waste += 2;                                        // increase need to go potty
+                    boredom += 2;                                      // increase pet's boredom
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 39:  // pet is having accidents in the house
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *******************************");
+                    Console.WriteLine("\r\n\t{0} suddenly started having accidents in the house.  You need", petName);
+                    Console.WriteLine("\tto keep him in his crate until he learns better. ");
+                    Console.WriteLine("\tAlso, you may need to have the vet take a look at him.");
+                    thirst += 1;                                       // increase thirst
+                    waste += 1;                                        // increase need to go potty
+                    boredom += 2;                                      // increase pet's boredom
+                    sick += 2.5;                                       // increase pet's sickness
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 43: // pet is becoming aggressive towards other dogs
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *******************************");
+                    Console.WriteLine("\r\n\t{0} is becoming more aggressive towards other animals.  You", petName);
+                    Console.WriteLine("\twill need to work on socializing him to help him get over this.");
+                    boredom += 2.5;                                    // increase pet's boredom
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                case 49: // pet is overworked
+                    Console.Clear();
+                    Console.WriteLine("\r\n\t\a\a\a************************** ALERT *******************************");
+                    Console.WriteLine("\r\n\t{0} is enjoying helping you train for your big hike, but he", petName);
+                    Console.WriteLine("\tis getting awfully skinny!  You may need to increase his food portions");
+                    hunger += 2;                                       // increase hunger
+                    thirst += 2.5;                                     // increase thirst
+                    waste += -2.0;                                     // reduce need to go potty
+                    boredom += -2.5;                                   // decrease pet's boredom
+                    rndTime = newRndTime;                              // update time since last random event
+                    MyPetStatus(userName, score);                      // print pet's current status
+                    return rndTime;
+                    break;
+                default: 
+                    return rndTime;
+                    break;
+                }
+            }
+        }
     }
-}
