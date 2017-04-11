@@ -41,18 +41,18 @@ namespace VirtualPet_Template
 
             userName = Greet();                          // Greet the user and get their name
             petName = GetPetName(userName);              // Select pet name
-            myPet.NameChange(petName);                   // Reset pet name based on user input
-            petName = myPet.GetName();                   // Get pet name again in case default was used
+            if(petName != "")myPet.Name = petName;       // Set pet name based on user input (unless it is blank)
+            petName = myPet.Name;                        // set petName to myPet.Name which will be either default or user input
 
 
             //personalize menu choices with name of pet
             //this was setup this way in case I wanted to add more pet options in the future and vary the menu
             //for each different type of pet.  It is not necessary for the program as it is now.
-            menu[1] = "  1. Feed " + myPet.GetName() + ".";
-            menu[2] = "  2. Give " + myPet.GetName() + " water.";
-            menu[3] = "  3. Take " + myPet.GetName() + " out to use the bathroom.";
-            menu[4] = "  4. Take " + myPet.GetName() + "to the park to play.";
-            menu[5] = "  5. " + myPet.GetName() + " isn't feeling well.  Take him to the vet.";
+            menu[1] = "  1. Feed " + myPet.Name + ".";
+            menu[2] = "  2. Give " + myPet.Name + " water.";
+            menu[3] = "  3. Take " + myPet.Name + " out to use the bathroom.";
+            menu[4] = "  4. Take " + myPet.Name + "to the park to play.";
+            menu[5] = "  5. " + myPet.Name + " isn't feeling well.  Take him to the vet.";
             menu[6] = "  6. Quit";
 
 
@@ -75,7 +75,7 @@ namespace VirtualPet_Template
                     myPet.BoredomChange(elapsedTime * 0.2);                    //increase boredom as time goes by
                     time = newTime;
                 }
-                quit = myPet.GetTerminate();                                    // get current terminate status
+                quit = myPet.Terminate;                                    // get current terminate status
 
                 if (!quit)
                 {
@@ -86,7 +86,7 @@ namespace VirtualPet_Template
                     newRndTime = DateTime.Now.Hour * 3600 + DateTime.Now.Minute * 60 + DateTime.Now.Second;
                     if ((newRndTime - rndTime) > 15)                          // set minimum frequency of random events in seconds
                     {
-                        rndTime = myPet.RandomEvent(randomNumber, newRndTime, userName, petName, score, rndTime); // get random event
+                        rndTime = myPet.RandomEvent(randomNumber, newRndTime, userName, myPet.Name, score, rndTime); // get random event
                     }
                     Console.WriteLine();
                     Console.WriteLine("\r\n  Please select an option:\r\n");  // prompt user for menu choice
@@ -111,21 +111,21 @@ namespace VirtualPet_Template
 
                         myPet.HungerChange(-1);
                         Console.Clear();
-                        Console.WriteLine("\r\n\t\tThank you for feeding {0}!", petName);
+                        Console.WriteLine("\r\n\t\tThank you for feeding {0}!", myPet.Name);
                         break;
 
                     case 2:                                                   // give pet water
 
                         myPet.ThirstChange(-1);
                         Console.Clear();
-                        Console.WriteLine("\r\n\t\tThank you for giving {0} water!", petName);
+                        Console.WriteLine("\r\n\t\tThank you for giving {0} water!", myPet.Name);
                         break;
 
                     case 3:                                                   // bathroom break!
 
                         myPet.WasteChange(-0.7);
                         Console.Clear();
-                        Console.WriteLine("\r\n\tThank you for letting {0} outside to go potty!", petName);
+                        Console.WriteLine("\r\n\tThank you for letting {0} outside to go potty!", myPet.Name);
                         break;
 
                     case 4:                                                  // play with pet
@@ -136,15 +136,15 @@ namespace VirtualPet_Template
                         myPet.SickChange(-0.2);
                         myPet.WasteChange(-0.5);
                         Console.Clear();
-                        Console.WriteLine("\r\n\t\t{0} had a wonderful time with you!", petName);
+                        Console.WriteLine("\r\n\t\t{0} had a wonderful time with you!", myPet.Name);
                         break;
 
                     case 5:                                                 // take pet to vet
 
                         myPet.SickChange(-2);
                         Console.Clear();
-                        number = myPet.GetSick();
-                        if (number < 5) Console.WriteLine("\r\n\t{0} feels so much better now.  Thank you!", petName);
+                        number = myPet.Sick;
+                        if (number < 5) Console.WriteLine("\r\n\t{0} feels so much better now.  Thank you!", myPet.Name);
                         if (number < 8 && number >= 5) Console.WriteLine("\r\n\t{0} feels much better, but you should propbably\r\n\tkeep a close eye on him.", petName);
                         if (number >= 8) Console.WriteLine("\r\n\tThank you for taking {0} to the vet. He is still not feeling well\r\n\tand may need another visit.", petName);
                         break;

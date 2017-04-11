@@ -18,6 +18,43 @@ namespace VirtualPet_Template
         private double sick;
         private bool terminate;
 
+        //set Properties to allow users access to fields
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public double Hunger
+        {
+            get { return hunger; }
+            set { hunger = value; }
+        }
+        public double Thirst
+        {
+            get { return thirst; }
+            set { thirst = value; }
+        }
+        public double Waste
+        {
+            get { return waste; }
+            set { waste = value; }
+        }
+        public double Boredom
+        {
+            get { return boredom; }
+            set { boredom = value; }
+        }
+        public double Sick
+        {
+            get { return sick; }
+            set { sick = value; }
+        }
+        public bool Terminate
+        {
+            get { return terminate; }
+            set { terminate = value; }
+        }
+
         // defaut constructor
         public VirtualPet()
         {
@@ -353,35 +390,6 @@ namespace VirtualPet_Template
 
         }
 
-        //methods to make object states/attributes accessible from Program.cs
-        public string GetName()
-        {
-            return name;
-        }
-        public double GetHunger()
-        {
-            return hunger;
-        }
-        public double GetThirst()
-        {
-            return thirst;
-        }
-        public double GetWaste()
-        {
-            return waste;
-        }
-        public double GetBoredom()
-        {
-            return boredom;
-        }
-        public double GetSick()
-        {
-            return sick;
-        }
-        public bool GetTerminate()
-        {
-            return terminate;
-        }
 
         public double RandomEvent(int number, double newRndTime, string userName, string petName,double score, double time)  //random events
         {
